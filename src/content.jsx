@@ -1,13 +1,11 @@
 import { render } from 'preact';
 import App from './app';
 
-export type Recordable = Record<string, any>;
-
 // 原始console.log
 const stdLog = console.log;
 
 // 安全调用JSON.parse()，无法转换会返回null
-const parsedJSON = (data: any): Recordable | null => {
+const parsedJSON = (data) => {
   try {
     const result = JSON.parse(data);
     if (typeof result !== 'object' || result === null) {
@@ -19,7 +17,7 @@ const parsedJSON = (data: any): Recordable | null => {
   }
 };
 
-const checkIsTDLog = (data: Recordable) => {
+const checkIsTDLog = (data) => {
   // 检查最外层对象结构
   if (!(data['data']) || !Array.isArray(data['data'])) {
     return false;
@@ -33,7 +31,7 @@ const checkIsTDLog = (data: Recordable) => {
 };
 
 // 重写console.log
-console.log = (...args: any[]) => {
+console.log = (...args) => {
   // super()
   stdLog.apply(console, args);
   // 自定义逻辑
@@ -58,7 +56,6 @@ const mountApp = () => {
 
   const root = document.createElement('div');
   root.id = 'alice-td-monitor';
-  root.style.cssText = 'position:fixed; bottom:12px; right:12px; z-index:9999; display:flex; flex-direction:column; align-items:end; gap:12px; max-width:90%; max-height:min(90%, 480px); overflow:hidden';
 
   document.body.appendChild(root);
   render(<App />, root);

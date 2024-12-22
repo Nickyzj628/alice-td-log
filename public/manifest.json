@@ -18,8 +18,13 @@
       "js": [
         "content.js"
       ],
+      "css": [
+        "content.css",
+        "app.css"
+      ],
       "matches": [
-        "<all_urls>"
+        "https://test.alice-ai.com/*",
+        "https://test2.alice-ai.com/*"
       ]
     }
   ]
