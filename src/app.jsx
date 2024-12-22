@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'preact/hooks';
 
 const App = () => {
+  const initialTdFlag = useRef(Boolean(localStorage.getItem('td_log')));
   const tableBoxRef = useRef(null);
   const [isTableVisible, setisTableVisible] = useState(Boolean(localStorage.getItem('td_log')));
 
@@ -25,7 +26,9 @@ const App = () => {
     setisTableVisible(next);
     if (next) {
       localStorage.setItem('td_log', '1');
-      location.reload();
+      if (!initialTdFlag.current) {
+        location.reload();
+      }
     } else {
       localStorage.removeItem('td_log');
     }
